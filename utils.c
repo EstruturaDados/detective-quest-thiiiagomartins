@@ -126,7 +126,9 @@ Sala* explorarSalas(Sala *atual, Pista **pistasColetadas) {
 
 // Libera recursivamente a memória de todas as salas
 void liberarSalas(Sala **salas, int total) {
-    if (!salas) return;
+    if (!salas) {
+        return;
+    }
     // libera a memória de todas as salas criadas
     for (int i = 0; i < total; i++) {
         free(salas[i]);
@@ -182,7 +184,9 @@ void inserirPista(Pista **raiz, const char *novaPista) {
 
 // Organiza as pistas em ordem alfabética
 void exibirPistas(Pista* raiz) {
-    if (!raiz) return;
+    if (!raiz) {
+        return;
+    }
     exibirPistas(raiz->esquerda);
     printf("- %s\n", raiz->pista);
     exibirPistas(raiz->direita);
@@ -190,7 +194,9 @@ void exibirPistas(Pista* raiz) {
 
 // Libera recursivamente a memória de todas as pistas
 void liberarPistas(Pista* raiz) {
-    if (!raiz) return;
+    if (!raiz) {
+        return;
+    }
     liberarPistas(raiz->esquerda);
     liberarPistas(raiz->direita);
     free(raiz);
