@@ -12,36 +12,43 @@ int main() {
     Sala **salas = montarMansao();
     Sala *inicio = salas[0];
     Sala *atual = inicio;
+    Pista *pistas = NULL;
     char reiniciar;
     // Loop para manter o menu e o jogo ativo
     do {
         printf("#### Bemvindo ao DETECTIVE QUEST ####\n");
         atual = inicio;
         while (atual) {
-            atual = explorarSalas(atual);
+            Sala *prox = explorarSalas(atual, &pistas);
+            int comOpcaoDeCaminho = atual->esquerda || atual->direita;
+            if (!prox) {
+                // Se a sala não tem opção, finaliza o loop para direcionar para a pergunta de reiniciar
+                if (comOpcaoDeCaminho) {
+                    atual = NULL;
+                    break;
+                }
+                break;
+            }
+            atual = prox;
         }
         // Pergunta se quer reiniciar o jogo
-        reiniciar = reiniciarJogo();
-
+        if (atual) {
+            reiniciar = reiniciarJogo();
+        } else {
+            // finaliza o while e segue para encerrar o programa
+            reiniciar = 0;
+        }
     } while (reiniciar);
 
     // Libera a memória
     liberarSalas(salas, totalSalas);
-    printf("\nMemória liberada. Fim do programa.\n");
+    printf("\nMemória de Salas liberada.");
+    liberarPistas(pistas);
+    printf("\nMemória de Pistas liberada.");
+    printf("\n#### Fim do DETETIVE QUEST ####");
 
     return 0;
 }
-
-    // 🔍 Nível Aventureiro: Armazenamento de Pistas com Árvore de Busca
-    //
-    // - Crie uma struct Pista com campo texto (string).
-    // - Crie uma árvore binária de busca (BST) para inserir as pistas coletadas.
-    // - Ao visitar salas específicas, adicione pistas automaticamente com inserirBST().
-    // - Implemente uma função para exibir as pistas em ordem alfabética (emOrdem()).
-    // - Utilize alocação dinâmica e comparação de strings (strcmp) para organizar.
-    // - Não precisa remover ou balancear a árvore.
-    // - Use funções para modularizar: inserirPista(), listarPistas().
-    // - A árvore de pistas deve ser exibida quando o jogador quiser revisar evidências.
 
     // 🧠 Nível Mestre: Relacionamento de Pistas com Suspeitos via Hash
     //
