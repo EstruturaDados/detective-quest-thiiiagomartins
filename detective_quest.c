@@ -2,9 +2,6 @@
 
 // Desafio Detective Quest
 // Tema 4 - Árvores e Tabela Hash
-// Este código inicial serve como base para o desenvolvimento das estruturas de navegação, pistas e suspeitos.
-// Use as instruções de cada região para desenvolver o sistema completo com árvore binária, árvore de busca e tabela hash.
-
 // detective_quest.c
 int main() {
     printf("#### DETECTIVE QUEST - INSTALANDO ####\n");
