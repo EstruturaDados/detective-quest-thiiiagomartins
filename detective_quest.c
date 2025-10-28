@@ -1,22 +1,36 @@
-#include <stdio.h>
+#include "detective_quest.h"
 
 // Desafio Detective Quest
 // Tema 4 - Árvores e Tabela Hash
 // Este código inicial serve como base para o desenvolvimento das estruturas de navegação, pistas e suspeitos.
 // Use as instruções de cada região para desenvolver o sistema completo com árvore binária, árvore de busca e tabela hash.
 
+// detective_quest.c
 int main() {
+    printf("#### DETECTIVE QUEST - INSTALANDO ####\n");
+    printf("--- Iniciando o mapa da mansão ---\n");
+    Sala **salas = montarMansao();
+    Sala *inicio = salas[0];
+    Sala *atual = inicio;
+    char reiniciar;
+    // Loop para manter o menu e o jogo ativo
+    do {
+        printf("#### Bemvindo ao DETECTIVE QUEST ####\n");
+        atual = inicio;
+        while (atual) {
+            atual = explorarSalas(atual);
+        }
+        // Pergunta se quer reiniciar o jogo
+        reiniciar = reiniciarJogo();
 
-    // 🌱 Nível Novato: Mapa da Mansão com Árvore Binária
-    //
-    // - Crie uma struct Sala com nome, e dois ponteiros: esquerda e direita.
-    // - Use funções como criarSala(), conectarSalas() e explorarSalas().
-    // - A árvore pode ser fixa: Hall de Entrada, Biblioteca, Cozinha, Sótão etc.
-    // - O jogador deve poder explorar indo à esquerda (e) ou à direita (d).
-    // - Finalize a exploração com uma opção de saída (s).
-    // - Exiba o nome da sala a cada movimento.
-    // - Use recursão ou laços para caminhar pela árvore.
-    // - Nenhuma inserção dinâmica é necessária neste nível.
+    } while (reiniciar);
+
+    // Libera a memória
+    liberarSalas(salas, totalSalas);
+    printf("\nMemória liberada. Fim do programa.\n");
+
+    return 0;
+}
 
     // 🔍 Nível Aventureiro: Armazenamento de Pistas com Árvore de Busca
     //
@@ -41,7 +55,3 @@ int main() {
     // - Para hashing simples, pode usar soma dos valores ASCII do nome ou primeira letra.
     // - Em caso de colisão, use lista encadeada para tratar.
     // - Modularize com funções como inicializarHash(), buscarSuspeito(), listarAssociacoes().
-
-    return 0;
-}
-
