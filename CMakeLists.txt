@@ -3,10 +3,13 @@ project(detective-quest-thiiiagomartins C)
 
 set(CMAKE_C_STANDARD 11)
 
-include_directories(.)
+include_directories(include)
 
 add_executable(detective-quest-thiiiagomartins
-    utils.c
-    detective_quest.c
-    detective_quest.h
+    src/detective_quest.c
+    src/sala.c
+    src/pistas.c
+    src/suspeito.c
+        include/navegacao.h
+        src/navegacao.c
 )
