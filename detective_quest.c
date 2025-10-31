@@ -10,13 +10,20 @@ int main() {
     Sala *inicio = salas[0];
     Sala *atual = inicio;
     Pista *pistas = NULL;
-    char reiniciar;
+    TabelaHash *suspeitosHash = inicializarHash();
+    int reiniciar;
+    AssociaAleatoria *associacoesAtuais = NULL;
+    int totalAssoc = 0;
+    srand(time(NULL));
+    vincularSuspeitoPista(suspeitosHash, &associacoesAtuais, &totalAssoc);
+    printf("--- Configuração finalizada!!! Boa sorte! ---\n");
+
     // Loop para manter o menu e o jogo ativo
     do {
         printf("#### Bemvindo ao DETECTIVE QUEST ####\n");
         atual = inicio;
         while (atual) {
-            Sala *prox = explorarSalas(atual, &pistas);
+            Sala *prox = explorarSalas(atual, &pistas, suspeitosHash, associacoesAtuais, totalAssoc);
             int comOpcaoDeCaminho = atual->esquerda || atual->direita;
             if (!prox) {
                 // Se a sala não tem opção, finaliza o loop para direcionar para a pergunta de reiniciar
@@ -42,6 +49,10 @@ int main() {
     printf("\nMemória de Salas liberada.");
     liberarPistas(pistas);
     printf("\nMemória de Pistas liberada.");
+    liberarHash(suspeitosHash);
+    printf("\nMemória da Tabela Hash liberada.");
+    liberarAssociacoes(&associacoesAtuais);
+    printf("\nMemória da Associações liberada.");
     printf("\n#### Fim do DETETIVE QUEST ####");
 
     return 0;
